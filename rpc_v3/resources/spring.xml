@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 对 test_server 这个包进行扫描-->
+    <context:component-scan base-package="test_server"></context:component-scan>
+
+    <!-- 加载 server 参数配置-->
+    <context:property-placeholder location="classpath:rpc.properties"></context:property-placeholder>
+
+    <!-- 配置服务注册组件 Zookeeper -->
+    <bean id = "serviceRegistry" class="rpc_core.registry.zookeeper.ZookeeperServiceRegistry">
+        <constructor-arg name="zkAddress" value="${rpc.registry_address}"></constructor-arg>
+    </bean>
+
+    <!-- 配置服务器 -->
+    <bean id = "server" class="rpc_core.transport.server.NettyServer">
+        <constructor-arg name="host" value="${rpc.server_host}"></constructor-arg>
+        <constructor-arg name="port" value="${rpc.server_port}"></constructor-arg>
+        <constructor-arg name="serviceRegistry" ref="serviceRegistry"></constructor-arg>
+    </bean>
+</beans>

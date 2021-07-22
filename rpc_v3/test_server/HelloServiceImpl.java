@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpc_api.HelloObject;
 import rpc_api.HelloService;
+import rpc_core.transport.server.RpcService;
 
+@RpcService(interfaceName = HelloService.class)
 public class HelloServiceImpl implements HelloService {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);

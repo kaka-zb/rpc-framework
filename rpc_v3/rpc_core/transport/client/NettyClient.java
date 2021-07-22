@@ -11,8 +11,8 @@ import rpc_common.exception.RpcException;
 import rpc_common.factory.SingletonFactory;
 import rpc_core.loadbalancer.LoadBalancer;
 import rpc_core.loadbalancer.RandomLoadBalancer;
-import rpc_core.registry.NacosServiceDiscovery;
 import rpc_core.registry.ServiceDiscovery;
+import rpc_core.registry.zookeeper.ZookeeperServiceDiscovery;
 import rpc_core.serializer.CommonSerializer;
 import rpc_core.transport.RpcClient;
 import java.net.InetSocketAddress;
@@ -26,20 +26,20 @@ public class NettyClient implements RpcClient {
     private final CommonSerializer serializer;
     private final UnprocessedRequests unprocessedRequests;
 
-    public NettyClient(Integer serializer, LoadBalancer loadBalancer) {
-        this.serviceDiscovery = new NacosServiceDiscovery(loadBalancer);
+    public NettyClient(Integer serializer, LoadBalancer loadBalancer, String zkAddress) {
+        this.serviceDiscovery = new ZookeeperServiceDiscovery(zkAddress, loadBalancer);
         this.serializer = CommonSerializer.getByCode(serializer);
         this.unprocessedRequests = SingletonFactory.getInstance(UnprocessedRequests.class);
     }
 
-    public NettyClient() {
-        this(DEFAULT_SERIALIZER, new RandomLoadBalancer());
+    public NettyClient(String zkAddress) {
+        this(DEFAULT_SERIALIZER, new RandomLoadBalancer(),zkAddress);
     }
-    public NettyClient(LoadBalancer loadBalancer) {
-        this(DEFAULT_SERIALIZER, loadBalancer);
+    public NettyClient(LoadBalancer loadBalancer, String zkAddress) {
+        this(DEFAULT_SERIALIZER, loadBalancer, zkAddress);
     }
-    public NettyClient(Integer serializer) {
-        this(serializer, new RandomLoadBalancer());
+    public NettyClient(Integer serializer, String zkAddress) {
+        this(serializer, new RandomLoadBalancer(), zkAddress);
     }
 
     @Override

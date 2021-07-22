@@ -9,7 +9,8 @@ import rpc_core.transport.client.NettyClient;
 public class NettyTestClient {
 
     public static void main(String[] args) {
-        RpcClient client = new NettyClient();
+        String zkAddress = "127.0.0.1:2181";
+        RpcClient client = new NettyClient(zkAddress);
         RpcClientProxy proxy = new RpcClientProxy(client);
         HelloService helloService = proxy.getProxy(HelloService.class);
         HelloObject object = new HelloObject(12, "This is zhangbo");

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpc_common.enumeration.RpcError;
 import rpc_common.exception.RpcException;
+import rpc_core.transport.server.RpcService;
 
 import java.util.Map;
 import java.util.Set;
@@ -17,8 +18,9 @@ public class ServiceProviderImpl implements ServiceProvider {
     private static final Set<String> registeredService = ConcurrentHashMap.newKeySet();
 
     @Override
-    public <T> void addServiceProvider(T service, Class<T> serviceClass) {
-        String serviceName = serviceClass.getCanonicalName();
+    public <T> void addServiceProvider(Object service, Class<?> serviceClass) {
+        RpcService rpcService = service.getClass().getAnnotation(RpcService.class);
+        String serviceName = rpcService.interfaceName().getName();
         if (registeredService.contains(serviceName)) return;
         registeredService.add(serviceName);
         serviceMap.put(serviceName, service);
@@ -32,5 +34,10 @@ public class ServiceProviderImpl implements ServiceProvider {
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }
         return service;
+    }
+
+    @Override
+    public Map<String, Object> getServiceMap() {
+        return serviceMap;
     }
 }

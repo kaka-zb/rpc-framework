@@ -1,9 +1,9 @@
 package rpc_core.transport.server;
 
-import com.alibaba.nacos.shaded.io.grpc.netty.shaded.io.netty.handler.timeout.IdleState;
-import com.alibaba.nacos.shaded.io.grpc.netty.shaded.io.netty.handler.timeout.IdleStateEvent;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpc_common.entity.RpcRequest;
