@@ -10,6 +10,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 将每一个server能提供的接口服务注册在这里
+ * 使用一个map保存服务名称和对应的实现类
+ * 但是一个服务只能有一个实现类，多的会覆盖掉
+ */
+
 public class ServiceProviderImpl implements ServiceProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceProviderImpl.class);
