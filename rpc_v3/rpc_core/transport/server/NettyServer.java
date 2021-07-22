@@ -53,7 +53,7 @@ public class NettyServer implements RpcServer, ApplicationContextAware, Initiali
     /**
      * Spring 容器在加载的时候会自动调用一次 setApplicationContext, 并将上下文 ApplicationContext 传递给这个方法
      * 也就是说在 server 启动时该方法就会进行调用
-     * 该方法的作用就是获取带有 @RpcService 注解的类的 value (被暴露的实现类的接口名称) 和 version (被暴露的实现类的版本号，默认为 “”)
+     * 该方法的作用就是获取带有 @RpcService 注解的类的 value (被暴露的实现类的接口名称)
      */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
