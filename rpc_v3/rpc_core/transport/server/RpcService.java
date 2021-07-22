@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
 
 /**
  * 定义服务暴露注解 @RpcService 供用户使用
+ * 考虑一个类有多个接口的情况
+ * 暂不考虑一个接口有多个实现类的情况（可以用version版本号解决）
  */
 @Target(ElementType.TYPE) // 表示 @RpcService 注解可放在 接口、类、枚举、注解 上
 @Retention(RetentionPolicy.RUNTIME) // 表示 @RpcService 注解会在class字节码文件中存在，在运行时可以通过反射获取到
