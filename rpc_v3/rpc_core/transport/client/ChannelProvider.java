@@ -69,7 +69,8 @@ public class ChannelProvider {
         channels.put(key, channel);
         return channel;
     }
-
+    
+    // completableFuture 可以手动设置完成状态
     private static Channel connect(Bootstrap bootstrap, InetSocketAddress inetSocketAddress) throws ExecutionException, InterruptedException {
         CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
         bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener) future -> {
