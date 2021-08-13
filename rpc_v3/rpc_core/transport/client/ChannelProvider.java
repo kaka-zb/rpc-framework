@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 使用一个 Map 保存已经连接成功的 channel，也就是达到复用channel的效果，如果下一个请求的方法
+ * 所在的服务器地址已经有channel连接，就不必再进行新的channel的连接。Map的key是地址+序列化号
+ */
 public class ChannelProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(ChannelProvider.class);
